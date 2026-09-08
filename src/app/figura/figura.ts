@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, computed, input } from '@angular/core';
 import { StageComponent, CoreShapeComponent } from 'ng2-konva';
 import { StageConfig } from 'konva/lib/Stage';
 import { LineConfig } from 'konva/lib/shapes/Line';
@@ -11,35 +11,50 @@ import { LineConfig } from 'konva/lib/shapes/Line';
   styleUrl: './figura.scss'
 })
 export class Figura {
+  readonly matrix = input<number[]>([1, 0, 0, 0, 1, 0, 0, 0, 1]);
+
   configStage: StageConfig = {
     width: 600,
     height: 400
   };
 
-  // Cara superior (top) — paralelogramo
-  configCaraSuperior: LineConfig = {
-    points: [200, 150, 300, 100, 400, 150, 300, 200],
-    closed: true,
-    fill: '#7ec8ff',
-    stroke: '#004a8f',
-    strokeWidth: 2
-  };
+  readonly configCaraSuperior = computed(() =>
+    this.createLineConfig([200, 150, 300, 100, 400, 150, 300, 200], '#7ec8ff'),
+  );
 
-  // Cara frontal (front) — cuadrado/rectángulo
-  configCaraFrontal: LineConfig = {
-    points: [200, 150, 300, 200, 300, 300, 200, 250],
-    closed: true,
-    fill: '#3ba0ff',
-    stroke: '#004a8f',
-    strokeWidth: 2
-  };
+  readonly configCaraFrontal = computed(() =>
+    this.createLineConfig([200, 150, 300, 200, 300, 300, 200, 250], '#3ba0ff'),
+  );
 
-  // Cara lateral (side) — paralelogramo
-  configCaraLateral: LineConfig = {
-    points: [300, 200, 400, 150, 400, 250, 300, 300],
-    closed: true,
-    fill: '#1c6fb8',
-    stroke: '#004a8f',
-    strokeWidth: 2
-  };
+  readonly configCaraLateral = computed(() =>
+    this.createLineConfig([300, 200, 400, 150, 400, 250, 300, 300], '#1c6fb8'),
+  );
+
+  private createLineConfig(points: number[], fill: string): LineConfig {
+    return {
+      points: this.transformPoints(points),
+      closed: true,
+      fill,
+      stroke: '#004a8f',
+      strokeWidth: 2,
+    };
+  }
+
+  private transformPoints(points: number[]): number[] {
+    const matrix = this.matrix();
+    const centerX = 300;
+    const centerY = 200;
+    const transformed: number[] = [];
+
+    for (let index = 0; index < points.length; index += 2) {
+      const x = points[index] - centerX;
+      const y = points[index + 1] - centerY;
+      transformed.push(
+        matrix[0] * x + matrix[3] * y + matrix[6] + centerX,
+        matrix[1] * x + matrix[4] * y + matrix[7] + centerY,
+      );
+    }
+
+    return transformed;
+  }
 }
