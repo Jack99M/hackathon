@@ -78,4 +78,9 @@
       <span>{{ matrix()[8] | number: '1.2-2' }}</span>
     </div>
   </div>
+
+  <p class="movement-summary" aria-live="polite">
+    posición: ({{ translatex() }}, {{ translatey() }}) · rotación: {{ rotation() }}° ·
+    reflejo: {{ reflectx() || reflecty() ? 'activo' : 'inactivo' }}
+  </p>
 </section>
