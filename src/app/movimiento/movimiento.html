@@ -1,0 +1,86 @@
+<section class="movement-panel" aria-labelledby="movement-title">
+  <div class="panel-heading">
+    <p class="eyebrow">transformación</p>
+    <h2 id="movement-title">movimiento</h2>
+    <p>controla la posición, el giro y el reflejo de la figura.</p>
+  </div>
+
+  <div class="control-list">
+    <label>
+      <span>traslación horizontal</span>
+      <output>{{ translatex() }}</output>
+      <input
+        #translatexinput
+        type="range"
+        min="-300"
+        max="300"
+        step="1"
+        [value]="translatex()"
+        (input)="ontranslatexchange(translatexinput.value)"
+        aria-label="traslación horizontal"
+      />
+    </label>
+
+    <label>
+      <span>traslación vertical</span>
+      <output>{{ translatey() }}</output>
+      <input
+        #translateyinput
+        type="range"
+        min="-200"
+        max="200"
+        step="1"
+        [value]="translatey()"
+        (input)="ontranslateychange(translateyinput.value)"
+        aria-label="traslación vertical"
+      />
+    </label>
+
+    <label>
+      <span>rotación</span>
+      <output>{{ rotation() }}°</output>
+      <input
+        #rotationinput
+        type="range"
+        min="0"
+        max="360"
+        step="1"
+        [value]="rotation()"
+        (input)="onrotationchange(rotationinput.value)"
+        aria-label="rotación"
+      />
+    </label>
+  </div>
+
+  <div class="button-list" aria-label="opciones de reflejo">
+    <button type="button" (click)="togglereflectionx()">
+      {{ reflectx() ? 'quitar reflejo horizontal' : 'reflejar horizontal' }}
+    </button>
+    <button type="button" (click)="togglereflectiony()">
+      {{ reflecty() ? 'quitar reflejo vertical' : 'reflejar vertical' }}
+    </button>
+    <button class="reset-button" type="button" (click)="resetmovement()">
+      reiniciar movimiento
+    </button>
+  </div>
+
+  <div class="matrix-panel" aria-labelledby="matrix-title">
+    <h3 id="matrix-title">matriz de movimiento</h3>
+    <div class="matrix" aria-label="matriz de transformación">
+      <span>{{ matrix()[0] | number: '1.2-2' }}</span>
+      <span>{{ matrix()[3] | number: '1.2-2' }}</span>
+      <span>{{ matrix()[6] | number: '1.2-2' }}</span>
+      <span>{{ matrix()[1] | number: '1.2-2' }}</span>
+      <span>{{ matrix()[4] | number: '1.2-2' }}</span>
+      <span>{{ matrix()[7] | number: '1.2-2' }}</span>
+      <span>{{ matrix()[2] | number: '1.2-2' }}</span>
+      <span>{{ matrix()[5] | number: '1.2-2' }}</span>
+      <span>{{ matrix()[8] | number: '1.2-2' }}</span>
+    </div>
+  </div>
+
+  <p class="movement-summary" aria-live="polite">
+    posición: ({{ translatex() }}, {{ translatey() }}) · rotación: {{ rotation() }}° ·
+    reflejo: {{ reflectx() || reflecty() ? 'activo' : 'inactivo' }}
+  </p>
+</section>

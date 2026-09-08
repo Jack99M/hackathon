@@ -1,0 +1,31 @@
+.contenedor {
+  display: flex;
+  gap: 24px;
+  padding: 16px;
+  font-family: sans-serif;
+}
+
+.canvas-wrap {
+  border: 1px solid #ccc;
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 220px;
+}
+
+.botones {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+pre {
+  background: #111;
+  color: #0f0;
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 13px;
+}
