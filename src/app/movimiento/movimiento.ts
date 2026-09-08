@@ -1,3 +1,4 @@
+import { DecimalPipe } from '@angular/common';
 import { Component, computed, output, signal } from '@angular/core';
 import { mat3 } from 'gl-matrix';
 
@@ -15,6 +16,7 @@ export interface MovimientoChange extends MovimientoState {
 
 @Component({
   selector: 'app-movimiento',
+  imports: [DecimalPipe],
   templateUrl: './movimiento.html',
   styleUrl: './movimiento.scss',
 })
