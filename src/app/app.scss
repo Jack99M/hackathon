@@ -1,0 +1,13 @@
+:host {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 1.5rem;
+	min-height: 100vh;
+	padding: 2rem 1rem 3rem;
+	box-sizing: border-box;
+}
+
+app-movimiento {
+	width: min(100%, 34rem);
+}

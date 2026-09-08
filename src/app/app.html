@@ -1,3 +1,7 @@
-<app-figura></app-figura>
+<app-figura [matrix]="matrix()"></app-figura>
+
+<app-movimiento
+	(transformchange)="ontransformchange($event)"
+></app-movimiento>
 
 <router-outlet></router-outlet>
